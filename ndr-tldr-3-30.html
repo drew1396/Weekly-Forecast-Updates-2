@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NDR TLDR — Week of 3/30/26</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1" integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,sans-serif;background:#f5f6f8;color:#1a1a2e}
+
+.header{background:linear-gradient(135deg,#1e1b4b 0%,#4338ca 100%);padding:28px 40px 24px;color:#fff}
+.header h1{font-size:24px;font-weight:800;margin-bottom:4px}
+.header .sub{font-size:13px;color:rgba(255,255,255,.55)}
+
+.container{max-width:1200px;margin:0 auto;padding:24px 40px 60px}
+
+.section-title{font-size:16px;font-weight:700;color:#1a1a2e;margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid #e5e7eb}
+
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:22px}
+.kpi-card{background:#fff;border-radius:12px;padding:18px 20px;box-shadow:0 1px 4px rgba(0,0,0,.06);text-align:center}
+.kpi-month{font-size:11px;font-weight:600;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.kpi-value{font-size:30px;font-weight:800;margin-bottom:3px}
+.kpi-wow{font-size:11px;font-weight:600}
+.wow-up{color:#22c55e}.wow-down{color:#ef4444}.wow-flat{color:#9ca3af}
+.kpi-best{font-size:11px;color:#6366f1;font-weight:600;margin-top:4px}
+
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:22px}
+.chart-card{background:#fff;border-radius:12px;padding:22px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.chart-card h3{font-size:13px;font-weight:700;color:#374151;margin-bottom:14px}
+.chart-card canvas{max-height:260px}
+.chart-full{grid-column:1/-1}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>NDR TLDR — Week of 3/30/26</h1>
+  <div class="sub">Net Dollar Retention &middot; All Accounts &amp; Priority Accounts &middot; Week-over-week trends</div>
+</div>
+
+<div class="container">
+
+<!-- SECTION 1: ALL ACCOUNTS -->
+<div class="section-title">All Accounts — NDR This Week</div>
+<div class="kpi-row">
+  <div class="kpi-card">
+    <div class="kpi-month">March</div>
+    <div class="kpi-value" style="color:#ef4444">39%</div>
+    <div class="kpi-wow wow-down">&#9660; -11pp vs 3/23 (50%)</div>
+    <div class="kpi-best">Best case: 48.0%</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-month">April</div>
+    <div class="kpi-value" style="color:#f59e0b">60%</div>
+    <div class="kpi-wow wow-down">&#9660; -6pp vs 3/23 (66%)</div>
+    <div class="kpi-best">Best case: 63.6%</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-month">May</div>
+    <div class="kpi-value" style="color:#f59e0b">65%</div>
+    <div class="kpi-wow wow-down">&#9660; -12pp vs 3/23 (77%)</div>
+    <div class="kpi-best">Best case: 79.8%</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-month">June</div>
+    <div class="kpi-value" style="color:#f59e0b">79%</div>
+    <div class="kpi-wow wow-down">&#9660; -4pp vs 3/23 (83%)</div>
+    <div class="kpi-best">Best case: 89.0%</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-month">July</div>
+    <div class="kpi-value" style="color:#f59e0b">68%</div>
+    <div class="kpi-wow wow-flat">&#8212; no update</div>
+    <div class="kpi-best">Best case: 85.4%</div>
+  </div>
+</div>
+
+<div class="chart-row">
+  <div class="chart-card">
+    <h3>March NDR — Week over Week</h3>
+    <canvas id="march-ndr" height="240"></canvas>
+  </div>
+  <div class="chart-card">
+    <h3>April NDR — Week over Week</h3>
+    <canvas id="april-ndr" height="240"></canvas>
+  </div>
+</div>
+<div class="chart-row">
+  <div class="chart-card">
+    <h3>May NDR — Week over Week</h3>
+    <canvas id="may-ndr" height="240"></canvas>
+  </div>
+  <div class="chart-card">
+    <h3>June NDR — Week over Week</h3>
+    <canvas id="june-ndr" height="240"></canvas>
+  </div>
+</div>
+<div class="chart-row">
+  <div class="chart-card">
+    <h3>July NDR — Week over Week</h3>
+    <canvas id="july-ndr" height="240"></canvas>
+  </div>
+</div>
+
+<!-- SECTION 2: PRIORITY ACCOUNTS -->
+<div class="section-title">Priority Accounts — NDR This Week</div>
+<div class="kpi-row">
+  <div class="kpi-card">
+    <div class="kpi-month">March (8 accts)</div>
+    <div class="kpi-value" style="color:#f59e0b">52.7%</div>
+    <div class="kpi-wow wow-down">&#9660; -34.1pp vs 3/23 (86.8%)</div>
+    <div class="kpi-best">Best case: 70.1%</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-month">April (17 accts)</div>
+    <div class="kpi-value" style="color:#f59e0b">57.6%</div>
+    <div class="kpi-wow wow-up">&#9650; +2.7pp vs 3/23 (54.9%)</div>
+    <div class="kpi-best">Best case: 60.3%</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-month">May (2 accts)</div>
+    <div class="kpi-value" style="color:#22c55e">103.1%</div>
+    <div class="kpi-wow wow-flat">&#8212; 0pp vs 3/23 (103.1%)</div>
+    <div class="kpi-best">Best case: 118.0%</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-month">June (15 accts)</div>
+    <div class="kpi-value" style="color:#f59e0b">86.3%</div>
+    <div class="kpi-wow wow-flat">&#8212; 0pp vs 3/23 (86.3%)</div>
+    <div class="kpi-best">Best case: 99.3%</div>
+  </div>
+</div>
+
+<div class="chart-row">
+  <div class="chart-card">
+    <h3>March Priority NDR — Week over Week</h3>
+    <canvas id="march-prior-ndr" height="240"></canvas>
+  </div>
+  <div class="chart-card">
+    <h3>April Priority NDR — Week over Week</h3>
+    <canvas id="april-prior-ndr" height="240"></canvas>
+  </div>
+</div>
+<div class="chart-row">
+  <div class="chart-card">
+    <h3>May Priority NDR — Week over Week</h3>
+    <canvas id="may-prior-ndr" height="240"></canvas>
+  </div>
+  <div class="chart-card">
+    <h3>June Priority NDR — Week over Week</h3>
+    <canvas id="june-prior-ndr" height="240"></canvas>
+  </div>
+</div>
+
+<!-- SECTION 3: COMPARISON BAR -->
+<div class="section-title">NDR Snapshot — All vs Priority vs Best Case</div>
+<div class="chart-row">
+  <div class="chart-card chart-full">
+    <h3>Current NDR, Priority NDR, and Best Case by Month</h3>
+    <canvas id="ndr-comparison" height="220"></canvas>
+  </div>
+</div>
+
+</div>
+
+<script>
+const MONTHS = ['March','April','May','June','July'];
+const fmt = v => v + '%';
+
+// All-accounts NDR history (through 3/23 unchanged, 3/26 removed, 3/30 added)
+const marchNDR = { weeks:['12/21','12/28','1/4','1/11','1/18','1/25','2/1','2/8','2/15','2/22','3/1','3/9','3/16','3/23','3/30'], values:[89,89,89,77,75,96,93,100,83,76,76,70,74,50,39] };
+const aprilNDR = { weeks:['1/4','1/11','1/18','1/25','2/1','2/8','2/15','2/22','3/1','3/9','3/16','3/23','3/30'], values:[86,65,65,68,66,65,76,65,62,50,65,66,60] };
+const mayNDR = { weeks:['1/4','1/11','1/18','1/25','2/1','2/8','2/15','2/22','3/1','3/9','3/16','3/23','3/30'], values:[81,77,79,67,67,67,69,60,54,64,76,77,65] };
+const juneNDR = { weeks:['2/22','3/1','3/9','3/16','3/23','3/30'], values:[84,76,75,82,83,79] };
+const julyNDR = { weeks:['3/26'], values:[68] };
+
+// Priority NDR history (recalculated with triage green accounts)
+const marchPriorNDR = { weeks:['3/16','3/23','3/30'], values:[122.3,86.8,52.7] };
+const aprilPriorNDR = { weeks:['3/16','3/23','3/30'], values:[53.9,54.9,57.6] };
+const mayPriorNDR = { weeks:['3/16','3/23','3/30'], values:[73.8,103.1,103.1] };
+const junePriorNDR = { weeks:['3/16','3/23','3/30'], values:[88.4,86.3,86.3] };
+
+function ndrLine(canvasId, data, color) {
+  const ctx = document.getElementById(canvasId).getContext('2d');
+  const lastIdx = data.values.length - 1;
+  const pointBg = data.values.map((_,i) => i === lastIdx ? color : 'rgba(255,255,255,.9)');
+  const pointR = data.values.map((_,i) => i === lastIdx ? 6 : 3);
+  new Chart(ctx, {
+    type: 'line',
+    data: { labels: data.weeks, datasets: [{
+      label: 'NDR %', data: data.values, borderColor: color, backgroundColor: color+'18',
+      tension: .3, fill: true, pointBackgroundColor: pointBg, pointBorderColor: color,
+      pointRadius: pointR, pointBorderWidth: 2, borderWidth: 2.5
+    }]},
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => 'NDR: ' + ctx.parsed.y + '%' } },
+        annotation: { annotations: { target: {
+          type:'line', yMin:100, yMax:100, borderColor:'#ef4444', borderWidth:1.5, borderDash:[6,4],
+          label: { content:'100% Target', display:true, position:'end', backgroundColor:'#ef4444', font:{size:10} }
+        }}}
+      },
+      scales: {
+        y: { min:0, max: Math.max(170, ...data.values)+10, ticks:{callback:fmt}, grid:{color:'#f0f0f0'} },
+        x: { grid:{display:false}, ticks:{font:{size:10}} }
+      }
+    }
+  });
+}
+
+// All-accounts line charts
+ndrLine('march-ndr', marchNDR, '#6366f1');
+ndrLine('april-ndr', aprilNDR, '#6366f1');
+ndrLine('may-ndr', mayNDR, '#6366f1');
+ndrLine('june-ndr', juneNDR, '#6366f1');
+ndrLine('july-ndr', julyNDR, '#6366f1');
+
+// Priority line charts
+ndrLine('march-prior-ndr', marchPriorNDR, '#8b5cf6');
+ndrLine('april-prior-ndr', aprilPriorNDR, '#8b5cf6');
+ndrLine('may-prior-ndr', mayPriorNDR, '#8b5cf6');
+ndrLine('june-prior-ndr', junePriorNDR, '#8b5cf6');
+
+// Comparison bar chart
+new Chart(document.getElementById('ndr-comparison'), {
+  type: 'bar',
+  data: {
+    labels: MONTHS,
+    datasets: [
+      { label:'NDR (All)', data:[39,60,65,79,68], backgroundColor:'#6366f1', borderRadius:4, barPercentage:.8, categoryPercentage:.7 },
+      { label:'NDR (Priority)', data:[52.7,57.6,103.1,86.3,0], backgroundColor:'#8b5cf6', borderRadius:4, barPercentage:.8, categoryPercentage:.7 },
+      { label:'Best Case (All)', data:[48.0,63.6,79.8,89.0,85.4], backgroundColor:'#c7d2fe', borderRadius:4, barPercentage:.8, categoryPercentage:.7 },
+      { label:'Best Case (Priority)', data:[70.1,60.3,118.0,99.3,0], backgroundColor:'#e9d5ff', borderRadius:4, barPercentage:.8, categoryPercentage:.7 },
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { position:'top', labels:{font:{size:11}} },
+      tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y + '%' } },
+      annotation: { annotations: { target: {
+        type:'line', yMin:100, yMax:100, borderColor:'#ef4444', borderWidth:1.5, borderDash:[6,4],
+        label: { content:'100% Target', display:true, position:'end', backgroundColor:'#ef4444', font:{size:10} }
+      }}}
+    },
+    scales: {
+      y: { min:0, max:130, ticks:{callback:fmt}, grid:{color:'#f0f0f0'} },
+      x: { grid:{display:false} }
+    }
+  }
+});
+</script>
+</body>
+</html>
